@@ -48,7 +48,7 @@ const login = {
 
 const createPost = {
     type: PostType,
-    description: 'Create a new post',
+    description: 'Create a new post and return id of the post, title, body and author',
     args: {
         title: { type: GraphQLString},
         body: { type: GraphQLString}
