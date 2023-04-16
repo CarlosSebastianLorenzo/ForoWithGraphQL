@@ -4,6 +4,7 @@ const { User} = require('../models')
 
 const users = {
     type: new GraphQLList(UserType),
+    description: 'Return a list of users',
     resolve(){
         return User.find();
     }
@@ -11,7 +12,7 @@ const users = {
 
 const user = {
     type: UserType,
-    description: "Get a user by id",
+    description: "Return a user by id",
     args: {
         id: {type: GraphQLID}
     },
