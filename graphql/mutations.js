@@ -20,8 +20,6 @@ const register = {
 
         const token = createJWTToken({_id : user._id, username: user.username, email: user.email});
 
-        console.log(token)
-
         return token;
     }
 };
@@ -59,6 +57,7 @@ const createPost = {
             body: args.body,
             authorId: verifiedUser._id
         })
+        await post.save();
 
         return post
     }
