@@ -109,9 +109,9 @@ const deletePost = {
 
         if (!postDeleted) throw new Error ("Post not found");
 
-        return "Post deleted";
+        return "Post deleted successfully";
     }
-}
+};
 
 const addComment = {
     type: CommentType,
@@ -130,7 +130,7 @@ const addComment = {
 
         return newComment
     }
-}
+};
 
 const updateComment = {
     type: CommentType,
@@ -156,6 +156,28 @@ const updateComment = {
 
         return updatedComment
     }
+};
+
+const deleteComment = {
+    type: GraphQLString,
+    description: "Deleted a comment",
+    args: {
+        id: {type: GraphQLID}
+    },
+    async resolve(_, {id}, {verifiedUser}){
+        
+        if (!verifiedUser) throw new Error("Unauthorized");
+        
+        const deleteComment = await Comment.findByIdAndDelete({
+            _id: id,
+            userId: verifiedUser._id
+        })
+
+        if (!deleteComment) throw new Error("Comment not found");
+
+        return "Comment deleted successfully";
+
+    }
 }
 
 module.exports = {
@@ -165,5 +187,6 @@ module.exports = {
     updatePost,
     deletePost,
     addComment,
-    updateComment
+    updateComment,
+    deleteComment
 }
